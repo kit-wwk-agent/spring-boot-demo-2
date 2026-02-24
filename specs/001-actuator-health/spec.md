@@ -1,9 +1,9 @@
 # Feature Specification: Application Health Endpoint
 
 **Feature Branch**: `001-actuator-health`
-**Created**: 2026-02-22
+**Created**: 2026-02-24
 **Status**: Draft
-**Input**: User description: "Add health check endpoint for application and dependency monitoring"
+**Input**: User description: "Add /actuator/health endpoint for health monitoring with database connectivity and disk space checks"
 
 ## Problem Statement
 
@@ -21,24 +21,24 @@ As a DevOps engineer, I need to configure health check probes in Kubernetes so t
 
 **Acceptance Scenarios**:
 
-1. **Given** a running application with all dependencies healthy, **When** a health check request is made, **Then** the response indicates "UP" status with a successful HTTP response code
-2. **Given** a running application with a failed database connection, **When** a health check request is made, **Then** the response indicates "DOWN" status with details about the failing component
-3. **Given** a running application with insufficient disk space, **When** a health check request is made, **Then** the response indicates "DOWN" status with disk space details
+1. **Given** a running application with all dependencies healthy, **When** GET `/actuator/health` is requested, **Then** the response returns HTTP 200 with JSON body `{"status": "UP"}`
+2. **Given** a running application with database unreachable, **When** GET `/actuator/health` is requested, **Then** the response returns HTTP 503 with JSON body `{"status": "DOWN"}`
+3. **Given** a running application with insufficient disk space, **When** GET `/actuator/health` is requested, **Then** the response returns HTTP 503 with status "DOWN"
 
 ---
 
-### User Story 2 - Developer Health Visibility (Priority: P2)
+### User Story 2 - Monitoring System Integration (Priority: P2)
 
-As a developer, I want to see the health status of all application dependencies at a glance during local development so I can quickly diagnose connectivity issues.
+As a monitoring system, I want structured health data so that I can alert on degraded services and track service health over time.
 
-**Why this priority**: Improves developer experience but is not critical for production operations. Developers can still use other debugging methods if this feature is unavailable.
+**Why this priority**: Critical for observability but the monitoring system can also check HTTP response codes. Structured data enables richer alerting.
 
-**Independent Test**: Can be fully tested by starting the application locally, accessing the health endpoint, and verifying all dependency statuses are displayed.
+**Independent Test**: Can be fully tested by configuring a monitoring agent to poll the health endpoint and verifying alerts trigger on status changes.
 
 **Acceptance Scenarios**:
 
-1. **Given** a locally running application, **When** I access the health endpoint, **Then** I see the overall status plus individual status for each monitored dependency
-2. **Given** a locally running application with database connection issues, **When** I access the health endpoint, **Then** I can identify which specific dependency is failing
+1. **Given** a monitoring system polling the health endpoint, **When** the service is healthy, **Then** the JSON response contains structured status data parseable by the monitoring agent
+2. **Given** a previously healthy service that becomes unhealthy, **When** the monitoring system detects HTTP 503, **Then** it can trigger an alert based on the status change
 
 ---
 
@@ -68,14 +68,14 @@ As a load balancer administrator, I want to configure health check endpoints so 
 
 ### Functional Requirements
 
-- **FR-001**: System MUST provide a health check endpoint accessible via HTTP GET request
-- **FR-002**: System MUST return overall application status as "UP" when all monitored dependencies are healthy
-- **FR-003**: System MUST return overall application status as "DOWN" when any monitored dependency is unhealthy
-- **FR-004**: System MUST include database connectivity status in health check response
-- **FR-005**: System MUST include disk space availability status in health check response
-- **FR-006**: System MUST return health check response with appropriate HTTP status codes (2xx for healthy, 5xx for unhealthy)
-- **FR-007**: System MUST include details about failing components when overall status is "DOWN"
-- **FR-008**: System MUST respond to health check requests within 500 milliseconds under normal load
+- **FR-001**: System MUST provide a health check endpoint at `/actuator/health` accessible via HTTP GET request
+- **FR-002**: System MUST return JSON body `{"status": "UP"}` with HTTP 200 when all monitored dependencies are healthy
+- **FR-003**: System MUST return JSON body `{"status": "DOWN"}` with HTTP 503 when any monitored dependency is unhealthy
+- **FR-004**: System MUST include database connectivity status in health evaluation
+- **FR-005**: System MUST include disk space availability status in health evaluation
+- **FR-006**: System MUST allow unauthenticated access to the health endpoint (no token required)
+- **FR-007**: System MUST return detailed component status when database is unreachable
+- **FR-008**: System MUST respond to health check requests within 500 milliseconds
 
 ### Key Entities
 

@@ -1,0 +1,229 @@
+openapi: 3.1.0
+info:
+  title: Application Health API
+  description: Spring Boot Actuator health endpoints for application monitoring
+  version: 1.0.0
+  contact:
+    name: DevOps Team
+
+servers:
+  - url: http://localhost:8080
+    description: Local development
+  - url: http://localhost:8080
+    description: Kubernetes pod (via port-forward)
+
+paths:
+  /actuator/health:
+    get:
+      summary: Get aggregate health status
+      description: |
+        Returns the aggregate health status of the application.
+        Used by load balancers and monitoring systems.
+      operationId: getHealth
+      tags:
+        - Health
+      security: []  # FR-006: No authentication required
+      responses:
+        '200':
+          description: Application is healthy (FR-002)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              examples:
+                healthy:
+                  summary: All systems operational
+                  value:
+                    status: UP
+                healthy_with_details:
+                  summary: Detailed health (authorized users)
+                  value:
+                    status: UP
+                    components:
+                      db:
+                        status: UP
+                        details:
+                          database: H2
+                          validationQuery: isValid()
+                      diskSpace:
+                        status: UP
+                        details:
+                          total: 499963174912
+                          free: 123456789012
+                          threshold: 10485760
+                          path: /
+                          exists: true
+        '503':
+          description: Application is unhealthy (FR-003)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              examples:
+                database_down:
+                  summary: Database unreachable (FR-007)
+                  value:
+                    status: DOWN
+                    components:
+                      db:
+                        status: DOWN
+                        details:
+                          error: "Connection refused"
+                      diskSpace:
+                        status: UP
+                disk_full:
+                  summary: Insufficient disk space
+                  value:
+                    status: DOWN
+                    components:
+                      db:
+                        status: UP
+                      diskSpace:
+                        status: DOWN
+                        details:
+                          total: 499963174912
+                          free: 5242880
+                          threshold: 10485760
+
+  /actuator/health/liveness:
+    get:
+      summary: Kubernetes liveness probe
+      description: |
+        Indicates whether the application is alive and should NOT be restarted.
+        Does NOT check external dependencies to prevent restart loops.
+      operationId: getLiveness
+      tags:
+        - Health
+        - Kubernetes
+      security: []
+      responses:
+        '200':
+          description: Application is alive
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: UP
+        '503':
+          description: Application should be restarted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: DOWN
+
+  /actuator/health/readiness:
+    get:
+      summary: Kubernetes readiness probe
+      description: |
+        Indicates whether the application is ready to receive traffic.
+        Checks database and disk space availability.
+        Failure removes pod from load balancer but does NOT restart it.
+      operationId: getReadiness
+      tags:
+        - Health
+        - Kubernetes
+      security: []
+      responses:
+        '200':
+          description: Application is ready for traffic
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: UP
+        '503':
+          description: Application is not ready for traffic
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: OUT_OF_SERVICE
+
+components:
+  schemas:
+    HealthResponse:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+        components:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/HealthComponent'
+          description: Individual health indicator results (shown when authorized)
+
+    Status:
+      type: string
+      enum:
+        - UP
+        - DOWN
+        - OUT_OF_SERVICE
+        - UNKNOWN
+      description: |
+        Health status enumeration:
+        - UP: Healthy
+        - DOWN: Unhealthy
+        - OUT_OF_SERVICE: Temporarily unavailable
+        - UNKNOWN: Status cannot be determined
+
+    HealthComponent:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+        details:
+          type: object
+          additionalProperties: true
+          description: Component-specific details
+
+    DatabaseHealth:
+      type: object
+      properties:
+        database:
+          type: string
+          description: Database product name
+          example: PostgreSQL
+        validationQuery:
+          type: string
+          description: Validation method used
+          example: isValid()
+        error:
+          type: string
+          description: Error message if unhealthy
+
+    DiskSpaceHealth:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+          description: Total disk space in bytes
+        free:
+          type: integer
+          format: int64
+          description: Available disk space in bytes
+        threshold:
+          type: integer
+          format: int64
+          description: Minimum required free space in bytes
+        path:
+          type: string
+          description: Filesystem path being monitored
+        exists:
+          type: boolean
+          description: Whether the path exists
+
+tags:
+  - name: Health
+    description: Application health monitoring endpoints
+  - name: Kubernetes
+    description: Kubernetes probe endpoints
