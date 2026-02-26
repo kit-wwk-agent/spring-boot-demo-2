@@ -1,0 +1,229 @@
+openapi: 3.0.3
+info:
+  title: Actuator Health API
+  description: |
+    Spring Boot Actuator health endpoints for application monitoring and Kubernetes probes.
+
+    These endpoints provide health status information for:
+    - Overall application health
+    - Database connectivity
+    - Disk space availability
+    - Kubernetes liveness/readiness probes
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+    description: Local development server
+
+paths:
+  /actuator/health:
+    get:
+      summary: Get overall application health
+      description: |
+        Returns the aggregated health status of the application including all configured health indicators.
+
+        - Returns 200 OK with `{"status": "UP"}` when healthy
+        - Returns 503 Service Unavailable with `{"status": "DOWN"}` when unhealthy
+        - Component details visibility depends on `show-details` configuration
+      operationId: getHealth
+      tags:
+        - Health
+      security: []  # No authentication required (FR-006)
+      responses:
+        '200':
+          description: Application is healthy
+          content:
+            application/vnd.spring-boot.actuator.v3+json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              examples:
+                healthy:
+                  summary: All systems operational
+                  value:
+                    status: UP
+                    components:
+                      db:
+                        status: UP
+                        details:
+                          database: H2
+                      diskSpace:
+                        status: UP
+                        details:
+                          total: 499963174912
+                          free: 234567890123
+                          threshold: 10485760
+                          path: "/"
+                          exists: true
+        '503':
+          description: Application is unhealthy
+          content:
+            application/vnd.spring-boot.actuator.v3+json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              examples:
+                databaseDown:
+                  summary: Database unreachable
+                  value:
+                    status: DOWN
+                    components:
+                      db:
+                        status: DOWN
+                        details:
+                          error: "Connection refused"
+                      diskSpace:
+                        status: UP
+
+  /actuator/health/liveness:
+    get:
+      summary: Kubernetes liveness probe
+      description: |
+        Returns liveness status for Kubernetes liveness probes.
+
+        This endpoint indicates whether the application should be restarted.
+        Only includes the livenessState indicator.
+      operationId: getLiveness
+      tags:
+        - Health
+        - Kubernetes
+      security: []
+      responses:
+        '200':
+          description: Application is alive
+          content:
+            application/vnd.spring-boot.actuator.v3+json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: UP
+                components:
+                  livenessState:
+                    status: UP
+        '503':
+          description: Application should be restarted
+          content:
+            application/vnd.spring-boot.actuator.v3+json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+
+  /actuator/health/readiness:
+    get:
+      summary: Kubernetes readiness probe
+      description: |
+        Returns readiness status for Kubernetes readiness probes.
+
+        This endpoint indicates whether the application is ready to receive traffic.
+        Includes readinessState, database, and disk space indicators.
+      operationId: getReadiness
+      tags:
+        - Health
+        - Kubernetes
+      security: []
+      responses:
+        '200':
+          description: Application is ready to receive traffic
+          content:
+            application/vnd.spring-boot.actuator.v3+json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: UP
+                components:
+                  readinessState:
+                    status: UP
+                  db:
+                    status: UP
+                    details:
+                      database: H2
+                  diskSpace:
+                    status: UP
+                    details:
+                      total: 499963174912
+                      free: 234567890123
+                      threshold: 10485760
+        '503':
+          description: Application is not ready for traffic
+          content:
+            application/vnd.spring-boot.actuator.v3+json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+
+components:
+  schemas:
+    HealthResponse:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          $ref: '#/components/schemas/HealthStatus'
+        components:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/HealthComponent'
+          description: Individual health indicator statuses
+
+    HealthStatus:
+      type: string
+      enum:
+        - UP
+        - DOWN
+        - OUT_OF_SERVICE
+        - UNKNOWN
+      description: |
+        Health status values:
+        - UP: Component is healthy
+        - DOWN: Component is unhealthy
+        - OUT_OF_SERVICE: Component is intentionally taken out of service
+        - UNKNOWN: Health status cannot be determined
+
+    HealthComponent:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          $ref: '#/components/schemas/HealthStatus'
+        details:
+          type: object
+          additionalProperties: true
+          description: Component-specific health details
+
+    DatabaseHealthDetails:
+      type: object
+      properties:
+        database:
+          type: string
+          description: Database product name
+          example: H2
+        validationQuery:
+          type: string
+          description: Query used to validate connection
+          example: isValid()
+
+    DiskSpaceHealthDetails:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int64
+          description: Total disk space in bytes
+        free:
+          type: integer
+          format: int64
+          description: Free disk space in bytes
+        threshold:
+          type: integer
+          format: int64
+          description: Configured threshold in bytes
+        path:
+          type: string
+          description: Path being monitored
+        exists:
+          type: boolean
+          description: Whether the monitored path exists
+
+tags:
+  - name: Health
+    description: Application health monitoring endpoints
+  - name: Kubernetes
+    description: Endpoints for Kubernetes probe integration
