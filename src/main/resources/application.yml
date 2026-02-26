@@ -6,6 +6,12 @@ spring:
       connection-timeout: 250
       validation-timeout: 250
 
+# Health Endpoint Security Posture:
+# - No Spring Security is configured, so all health endpoints are publicly accessible
+# - /actuator/health, /actuator/health/liveness, /actuator/health/readiness require no authentication
+# - This allows Kubernetes probes and load balancers to access health endpoints without credentials
+# - If Spring Security is added later, explicit permit rules will be needed for health endpoints
+# - show-details: when_authorized hides component details from unauthenticated users in production
 management:
   endpoints:
     web:
