@@ -21,9 +21,9 @@
 
 **Purpose**: Verify project dependencies and basic structure are correct
 
-- [ ] T001 Verify spring-boot-starter-actuator dependency in build.gradle.kts
-- [ ] T002 [P] Verify spring-boot-starter-data-jpa dependency in build.gradle.kts
-- [ ] T003 [P] Verify H2 and PostgreSQL runtime dependencies in build.gradle.kts
+- [X] T001 Verify spring-boot-starter-actuator dependency in build.gradle.kts
+- [X] T002 [P] Verify spring-boot-starter-data-jpa dependency in build.gradle.kts
+- [X] T003 [P] Verify H2 and PostgreSQL runtime dependencies in build.gradle.kts
 
 ---
 
@@ -33,10 +33,10 @@
 
 **Status**: Configuration already exists in `src/main/resources/application.yml`
 
-- [ ] T004 Verify actuator endpoints exposure configuration (health, info, metrics) in src/main/resources/application.yml
-- [ ] T005 [P] Verify health endpoint caching configuration (1000ms TTL) in src/main/resources/application.yml
-- [ ] T006 [P] Verify HikariCP connection timeout settings (250ms) in src/main/resources/application.yml
-- [ ] T007 Verify test profile configuration enables full health details in src/test/resources/application-test.yml
+- [X] T004 Verify actuator endpoints exposure configuration (health, info, metrics) in src/main/resources/application.yml
+- [X] T005 [P] Verify health endpoint caching configuration (1000ms TTL) in src/main/resources/application.yml
+- [X] T006 [P] Verify HikariCP connection timeout settings (250ms) in src/main/resources/application.yml
+- [X] T007 Verify test profile configuration enables full health details in src/test/resources/application-test.yml
 
 **Checkpoint**: Foundation verified - user story validation can now begin in parallel
 
@@ -50,11 +50,11 @@
 
 ### Verification for User Story 1
 
-- [ ] T008 [US1] Verify health endpoint path configured at /actuator/health in src/main/resources/application.yml
-- [ ] T009 [P] [US1] Verify Kubernetes probes enabled (liveness, readiness) in src/main/resources/application.yml
-- [ ] T010 [P] [US1] Verify liveness probe health group configuration in src/main/resources/application.yml
-- [ ] T011 [P] [US1] Verify readiness probe health group configuration in src/main/resources/application.yml
-- [ ] T012 [US1] Run basic health check tests in src/test/java/com/example/demo/integration/HealthEndpointIntegrationTest.java
+- [X] T008 [US1] Verify health endpoint path configured at /actuator/health in src/main/resources/application.yml
+- [X] T009 [P] [US1] Verify Kubernetes probes enabled (liveness, readiness) in src/main/resources/application.yml
+- [X] T010 [P] [US1] Verify liveness probe health group configuration in src/main/resources/application.yml
+- [X] T011 [P] [US1] Verify readiness probe health group configuration in src/main/resources/application.yml
+- [X] T012 [US1] Run basic health check tests in src/test/java/com/example/demo/integration/HealthEndpointIntegrationTest.java
 
 **Checkpoint**: User Story 1 (Basic Health Check) verified - MVP functionality confirmed
 
@@ -68,9 +68,9 @@
 
 ### Verification for User Story 2
 
-- [ ] T013 [US2] Verify DataSourceHealthIndicator is auto-configured via Spring Data JPA dependency
-- [ ] T014 [P] [US2] Verify database health included in readiness probe group in src/main/resources/application.yml
-- [ ] T015 [US2] Run database health indicator tests in src/test/java/com/example/demo/integration/HealthEndpointIntegrationTest.java
+- [X] T013 [US2] Verify DataSourceHealthIndicator is auto-configured via Spring Data JPA dependency
+- [X] T014 [P] [US2] Verify database health included in readiness probe group in src/main/resources/application.yml
+- [X] T015 [US2] Run database health indicator tests in src/test/java/com/example/demo/integration/HealthEndpointIntegrationTest.java
 
 **Checkpoint**: User Story 2 (Database Health) verified - database connectivity monitoring confirmed
 
@@ -84,10 +84,10 @@
 
 ### Verification for User Story 3
 
-- [ ] T016 [US3] Verify disk space health indicator enabled in src/main/resources/application.yml
-- [ ] T017 [P] [US3] Verify disk space threshold configured (10485760 bytes / 10MB) in src/main/resources/application.yml
-- [ ] T018 [P] [US3] Verify disk space monitoring path configured (/) in src/main/resources/application.yml
-- [ ] T019 [US3] Run disk space health indicator tests in src/test/java/com/example/demo/integration/HealthEndpointIntegrationTest.java
+- [X] T016 [US3] Verify disk space health indicator enabled in src/main/resources/application.yml
+- [X] T017 [P] [US3] Verify disk space threshold configured (10485760 bytes / 10MB) in src/main/resources/application.yml
+- [X] T018 [P] [US3] Verify disk space monitoring path configured (/) in src/main/resources/application.yml
+- [X] T019 [US3] Run disk space health indicator tests in src/test/java/com/example/demo/integration/HealthEndpointIntegrationTest.java
 
 **Checkpoint**: User Story 3 (Disk Space) verified - disk space monitoring confirmed
 
@@ -97,11 +97,11 @@
 
 **Purpose**: Final validation and documentation
 
-- [ ] T020 Run all integration tests to verify complete health endpoint functionality
-- [ ] T021 [P] Verify unauthenticated access tests pass (FR-006 compliance)
-- [ ] T022 [P] Verify performance tests pass (< 500ms response time per FR-007)
-- [ ] T023 Validate quickstart.md scenarios work correctly by manual testing
-- [ ] T024 Verify all functional requirements (FR-001 through FR-007) are satisfied
+- [X] T020 Run all integration tests to verify complete health endpoint functionality
+- [X] T021 [P] Verify unauthenticated access tests pass (FR-006 compliance)
+- [X] T022 [P] Verify performance tests pass (< 500ms response time per FR-007)
+- [X] T023 Validate quickstart.md scenarios work correctly by manual testing
+- [X] T024 Verify all functional requirements (FR-001 through FR-007) are satisfied
 
 ---
 
