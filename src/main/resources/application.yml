@@ -30,3 +30,9 @@ management:
       enabled: true
       threshold: 10485760
       path: /
+
+# Rate limiting configuration
+ratelimit:
+  requests-per-minute: 60
+  window-duration-ms: 60000
+  enabled: true

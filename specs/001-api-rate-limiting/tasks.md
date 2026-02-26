@@ -19,8 +19,8 @@
 
 **Purpose**: Verify project structure and dependencies are in place
 
-- [ ] T001 Verify Gradle dependencies include spring-boot-starter-web, spring-boot-starter-actuator in build.gradle.kts
-- [ ] T002 [P] Create package directories: src/main/java/com/example/demo/config/, src/main/java/com/example/demo/filter/, src/main/java/com/example/demo/ratelimit/
+- [X] T001 Verify Gradle dependencies include spring-boot-starter-web, spring-boot-starter-actuator in build.gradle.kts
+- [X] T002 [P] Create package directories: src/main/java/com/example/demo/config/, src/main/java/com/example/demo/filter/, src/main/java/com/example/demo/ratelimit/
 
 ---
 
@@ -30,10 +30,10 @@
 
 **CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T003 Create RateLimitCounter POJO with clientIp, requestCount, windowStartTime fields and increment/isExpired/reset methods in src/main/java/com/example/demo/ratelimit/RateLimitCounter.java
-- [ ] T004 Create RateLimitProperties configuration class with @ConfigurationProperties binding for ratelimit.requests-per-minute (default 60), ratelimit.window-duration-ms (default 60000), ratelimit.enabled (default true) in src/main/java/com/example/demo/config/RateLimitProperties.java
-- [ ] T005 Add @ConfigurationPropertiesScan or @EnableConfigurationProperties to DemoApplication.java in src/main/java/com/example/demo/DemoApplication.java
-- [ ] T006 Add rate limit configuration properties to src/main/resources/application.properties with defaults
+- [X] T003 Create RateLimitCounter POJO with clientIp, requestCount, windowStartTime fields and increment/isExpired/reset methods in src/main/java/com/example/demo/ratelimit/RateLimitCounter.java
+- [X] T004 Create RateLimitProperties configuration class with @ConfigurationProperties binding for ratelimit.requests-per-minute (default 60), ratelimit.window-duration-ms (default 60000), ratelimit.enabled (default true) in src/main/java/com/example/demo/config/RateLimitProperties.java
+- [X] T005 Add @ConfigurationPropertiesScan or @EnableConfigurationProperties to DemoApplication.java in src/main/java/com/example/demo/DemoApplication.java
+- [X] T006 Add rate limit configuration properties to src/main/resources/application.properties with defaults
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 
@@ -49,18 +49,18 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T007 [P] [US1] Create RateLimitServiceTest with tests for: increment count, check limit exceeded, window expiration reset, multiple IPs tracked separately in src/test/java/com/example/demo/ratelimit/RateLimitServiceTest.java
-- [ ] T008 [P] [US1] Create RateLimitFilterTest with tests for: request within limit passes through, request exceeding limit returns 429, Retry-After header present, JSON response body correct in src/test/java/com/example/demo/filter/RateLimitFilterTest.java
-- [ ] T009 [P] [US1] Create RateLimitIntegrationTest with @SpringBootTest for end-to-end rate limiting on /api/* endpoints in src/test/java/com/example/demo/integration/RateLimitIntegrationTest.java
+- [X] T007 [P] [US1] Create RateLimitServiceTest with tests for: increment count, check limit exceeded, window expiration reset, multiple IPs tracked separately in src/test/java/com/example/demo/ratelimit/RateLimitServiceTest.java
+- [X] T008 [P] [US1] Create RateLimitFilterTest with tests for: request within limit passes through, request exceeding limit returns 429, Retry-After header present, JSON response body correct in src/test/java/com/example/demo/filter/RateLimitFilterTest.java
+- [X] T009 [P] [US1] Create RateLimitIntegrationTest with @SpringBootTest for end-to-end rate limiting on /api/* endpoints in src/test/java/com/example/demo/integration/RateLimitIntegrationTest.java
 
 ### Implementation for User Story 1
 
-- [ ] T010 [US1] Create RateLimitResponse DTO with error, message, retryAfter fields for 429 response body in src/main/java/com/example/demo/ratelimit/RateLimitResponse.java
-- [ ] T011 [US1] Implement RateLimitService with ConcurrentHashMap storage, atomic compute() for increment, fixed window algorithm, client IP tracking in src/main/java/com/example/demo/ratelimit/RateLimitService.java
-- [ ] T012 [US1] Implement RateLimitFilter extending OncePerRequestFilter with doFilterInternal checking rate limit and returning 429 with Retry-After header in src/main/java/com/example/demo/filter/RateLimitFilter.java
-- [ ] T013 [US1] Add FilterRegistrationBean configuration for RateLimitFilter with /api/* URL pattern in src/main/java/com/example/demo/config/RateLimitFilterConfig.java
-- [ ] T014 [US1] Implement client IP extraction from X-Forwarded-For header with fallback to getRemoteAddr() in RateLimitFilter
-- [ ] T015 [US1] Create sample /api/test endpoint for manual testing in src/main/java/com/example/demo/controller/TestController.java
+- [X] T010 [US1] Create RateLimitResponse DTO with error, message, retryAfter fields for 429 response body in src/main/java/com/example/demo/ratelimit/RateLimitResponse.java
+- [X] T011 [US1] Implement RateLimitService with ConcurrentHashMap storage, atomic compute() for increment, fixed window algorithm, client IP tracking in src/main/java/com/example/demo/ratelimit/RateLimitService.java
+- [X] T012 [US1] Implement RateLimitFilter extending OncePerRequestFilter with doFilterInternal checking rate limit and returning 429 with Retry-After header in src/main/java/com/example/demo/filter/RateLimitFilter.java
+- [X] T013 [US1] Add FilterRegistrationBean configuration for RateLimitFilter with /api/* URL pattern in src/main/java/com/example/demo/config/RateLimitFilterConfig.java
+- [X] T014 [US1] Implement client IP extraction from X-Forwarded-For header with fallback to getRemoteAddr() in RateLimitFilter
+- [X] T015 [US1] Create sample /api/test endpoint for manual testing in src/main/java/com/example/demo/controller/TestController.java
 - [ ] T016 [US1] Run User Story 1 tests and verify they pass
 
 **Checkpoint**: Rate limiting works - requests exceeding limit get HTTP 429 with Retry-After header
@@ -75,13 +75,13 @@
 
 ### Tests for User Story 2
 
-- [ ] T017 [P] [US2] Add configuration tests to verify: custom limit applied, default 60 when not specified, validation rejects invalid values in src/test/java/com/example/demo/config/RateLimitPropertiesTest.java
-- [ ] T018 [P] [US2] Add integration test for configuration: start with limit=30, verify 31st request returns 429 in src/test/java/com/example/demo/integration/RateLimitConfigIntegrationTest.java
+- [X] T017 [P] [US2] Add configuration tests to verify: custom limit applied, default 60 when not specified, validation rejects invalid values in src/test/java/com/example/demo/config/RateLimitPropertiesTest.java
+- [X] T018 [P] [US2] Add integration test for configuration: start with limit=30, verify 31st request returns 429 in src/test/java/com/example/demo/integration/RateLimitConfigIntegrationTest.java
 
 ### Implementation for User Story 2
 
-- [ ] T019 [US2] Add JSR-380 validation annotations (@Min, @Max) to RateLimitProperties for requests-per-minute range 1-10000 in src/main/java/com/example/demo/config/RateLimitProperties.java
-- [ ] T020 [US2] Add spring-boot-starter-validation dependency to build.gradle.kts if not present
+- [X] T019 [US2] Add JSR-380 validation annotations (@Min, @Max) to RateLimitProperties for requests-per-minute range 1-10000 in src/main/java/com/example/demo/config/RateLimitProperties.java
+- [X] T020 [US2] Add spring-boot-starter-validation dependency to build.gradle.kts if not present
 - [ ] T021 [US2] Run User Story 2 tests and verify they pass
 
 **Checkpoint**: Configuration is validated and applied correctly without code changes
@@ -96,12 +96,12 @@
 
 ### Tests for User Story 3
 
-- [ ] T022 [P] [US3] Add exclusion tests to RateLimitFilterTest: verify /actuator/* and /health paths bypass rate limiting in src/test/java/com/example/demo/filter/RateLimitFilterTest.java
-- [ ] T023 [P] [US3] Add integration test for exclusion: rate limit client on /api/*, then verify /actuator/health succeeds in src/test/java/com/example/demo/integration/RateLimitExclusionIntegrationTest.java
+- [X] T022 [P] [US3] Add exclusion tests to RateLimitFilterTest: verify /actuator/* and /health paths bypass rate limiting in src/test/java/com/example/demo/filter/RateLimitFilterTest.java
+- [X] T023 [P] [US3] Add integration test for exclusion: rate limit client on /api/*, then verify /actuator/health succeeds in src/test/java/com/example/demo/integration/RateLimitExclusionIntegrationTest.java
 
 ### Implementation for User Story 3
 
-- [ ] T024 [US3] Override shouldNotFilter() in RateLimitFilter to exclude /actuator/** and /health paths in src/main/java/com/example/demo/filter/RateLimitFilter.java
+- [X] T024 [US3] Override shouldNotFilter() in RateLimitFilter to exclude /actuator/** and /health paths in src/main/java/com/example/demo/filter/RateLimitFilter.java
 - [ ] T025 [US3] Run User Story 3 tests and verify they pass
 
 **Checkpoint**: Actuator and health endpoints always accessible regardless of rate limit status
@@ -112,8 +112,8 @@
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T026 Implement ScheduledExecutorService cleanup task to remove expired rate limit entries every 60 seconds in src/main/java/com/example/demo/ratelimit/RateLimitService.java
-- [ ] T027 [P] Add logging for rate limit events (limit exceeded, window reset) in RateLimitFilter and RateLimitService
+- [X] T026 Implement ScheduledExecutorService cleanup task to remove expired rate limit entries every 60 seconds in src/main/java/com/example/demo/ratelimit/RateLimitService.java
+- [X] T027 [P] Add logging for rate limit events (limit exceeded, window reset) in RateLimitFilter and RateLimitService
 - [ ] T028 Run full test suite: ./gradlew test
 - [ ] T029 Validate quickstart.md scenarios manually: build, rate limit test loop, 429 response check, actuator exclusion
 - [ ] T030 Run ./gradlew build to verify project compiles and all tests pass
