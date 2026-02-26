@@ -25,8 +25,8 @@ Based on plan.md project structure:
 
 **Purpose**: Verify project dependencies and structure
 
-- [ ] T001 Verify spring-boot-starter-validation dependency in build.gradle (required for @Min/@Max annotations)
-- [ ] T002 Verify existing controller(s) with list endpoints in src/main/java/com/example/demo/controller/
+- [X] T001 Verify spring-boot-starter-validation dependency in build.gradle (required for @Min/@Max annotations)
+- [X] T002 Verify existing controller(s) with list endpoints in src/main/java/com/example/demo/controller/ (Created ItemController with Item entity and ItemRepository)
 
 ---
 
@@ -36,10 +36,10 @@ Based on plan.md project structure:
 
 **⚠️ CRITICAL**: GlobalExceptionHandler must be complete before US3 validation can work correctly
 
-- [ ] T003 [P] Create dto package at src/main/java/com/example/demo/dto/
-- [ ] T004 [P] Create ErrorResponse record in src/main/java/com/example/demo/dto/ErrorResponse.java
-- [ ] T005 Create exception package at src/main/java/com/example/demo/exception/
-- [ ] T006 Create GlobalExceptionHandler in src/main/java/com/example/demo/exception/GlobalExceptionHandler.java
+- [X] T003 [P] Create dto package at src/main/java/com/example/demo/dto/
+- [X] T004 [P] Create ErrorResponse record in src/main/java/com/example/demo/dto/ErrorResponse.java
+- [X] T005 Create exception package at src/main/java/com/example/demo/exception/
+- [X] T006 Create GlobalExceptionHandler in src/main/java/com/example/demo/exception/GlobalExceptionHandler.java
 
 **Checkpoint**: Error infrastructure ready - user story implementation can now begin
 
@@ -53,10 +53,10 @@ Based on plan.md project structure:
 
 ### Implementation for User Story 1
 
-- [ ] T007 [US1] Update list endpoint method signature to accept page parameter with @RequestParam(defaultValue = "0") Integer page in src/main/java/com/example/demo/controller/
-- [ ] T008 [US1] Update list endpoint method signature to accept size parameter with @RequestParam(defaultValue = "20") Integer size in src/main/java/com/example/demo/controller/
-- [ ] T009 [US1] Create Pageable using PageRequest.of(page, size) in list endpoint method
-- [ ] T010 [US1] Update repository call to use findAll(Pageable pageable) and return Page<T> in controller
+- [X] T007 [US1] Update list endpoint method signature to accept page parameter with @RequestParam(defaultValue = "0") Integer page in src/main/java/com/example/demo/controller/
+- [X] T008 [US1] Update list endpoint method signature to accept size parameter with @RequestParam(defaultValue = "20") Integer size in src/main/java/com/example/demo/controller/
+- [X] T009 [US1] Create Pageable using PageRequest.of(page, size) in list endpoint method
+- [X] T010 [US1] Update repository call to use findAll(Pageable pageable) and return Page<T> in controller
 
 **Checkpoint**: User Story 1 complete - list endpoints accept page/size params and return paginated subset
 
@@ -93,9 +93,9 @@ No new implementation tasks required. Spring's `Page<T>` interface automatically
 
 ### Implementation for User Story 3
 
-- [ ] T011 [US3] Add @Validated annotation to controller class(es) in src/main/java/com/example/demo/controller/
-- [ ] T012 [US3] Add @Min(0) validation annotation to page parameter in list endpoint(s)
-- [ ] T013 [US3] Add @Min(1) @Max(100) validation annotations to size parameter in list endpoint(s)
+- [X] T011 [US3] Add @Validated annotation to controller class(es) in src/main/java/com/example/demo/controller/
+- [X] T012 [US3] Add @Min(0) validation annotation to page parameter in list endpoint(s)
+- [X] T013 [US3] Add @Min(1) @Max(100) validation annotations to size parameter in list endpoint(s)
 
 **Checkpoint**: User Story 3 complete - invalid parameters return HTTP 400 with descriptive error messages
 
@@ -105,9 +105,9 @@ No new implementation tasks required. Spring's `Page<T>` interface automatically
 
 **Purpose**: Final verification and cleanup
 
-- [ ] T014 Verify all list endpoints have consistent pagination parameter names (page, size)
-- [ ] T015 Run quickstart.md verification checklist against implementation
-- [ ] T016 Verify response structure matches contracts/pagination-api.yaml schema
+- [X] T014 Verify all list endpoints have consistent pagination parameter names (page, size)
+- [X] T015 Run quickstart.md verification checklist against implementation (Note: Java not installed - manual code review completed)
+- [X] T016 Verify response structure matches contracts/pagination-api.yaml schema (Page<T> matches required fields)
 
 ---
 
