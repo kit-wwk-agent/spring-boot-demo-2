@@ -61,7 +61,7 @@
 - [X] T013 [US1] Add FilterRegistrationBean configuration for RateLimitFilter with /api/* URL pattern in src/main/java/com/example/demo/config/RateLimitFilterConfig.java
 - [X] T014 [US1] Implement client IP extraction from X-Forwarded-For header with fallback to getRemoteAddr() in RateLimitFilter
 - [X] T015 [US1] Create sample /api/test endpoint for manual testing in src/main/java/com/example/demo/controller/TestController.java
-- [ ] T016 [US1] Run User Story 1 tests and verify they pass
+- [X] T016 [US1] Run User Story 1 tests and verify they pass
 
 **Checkpoint**: Rate limiting works - requests exceeding limit get HTTP 429 with Retry-After header
 
@@ -82,7 +82,7 @@
 
 - [X] T019 [US2] Add JSR-380 validation annotations (@Min, @Max) to RateLimitProperties for requests-per-minute range 1-10000 in src/main/java/com/example/demo/config/RateLimitProperties.java
 - [X] T020 [US2] Add spring-boot-starter-validation dependency to build.gradle.kts if not present
-- [ ] T021 [US2] Run User Story 2 tests and verify they pass
+- [X] T021 [US2] Run User Story 2 tests and verify they pass
 
 **Checkpoint**: Configuration is validated and applied correctly without code changes
 
@@ -102,7 +102,7 @@
 ### Implementation for User Story 3
 
 - [X] T024 [US3] Override shouldNotFilter() in RateLimitFilter to exclude /actuator/** and /health paths in src/main/java/com/example/demo/filter/RateLimitFilter.java
-- [ ] T025 [US3] Run User Story 3 tests and verify they pass
+- [X] T025 [US3] Run User Story 3 tests and verify they pass
 
 **Checkpoint**: Actuator and health endpoints always accessible regardless of rate limit status
 
@@ -114,9 +114,9 @@
 
 - [X] T026 Implement ScheduledExecutorService cleanup task to remove expired rate limit entries every 60 seconds in src/main/java/com/example/demo/ratelimit/RateLimitService.java
 - [X] T027 [P] Add logging for rate limit events (limit exceeded, window reset) in RateLimitFilter and RateLimitService
-- [ ] T028 Run full test suite: ./gradlew test
-- [ ] T029 Validate quickstart.md scenarios manually: build, rate limit test loop, 429 response check, actuator exclusion
-- [ ] T030 Run ./gradlew build to verify project compiles and all tests pass
+- [X] T028 Run full test suite: ./gradlew test
+- [X] T029 Validate quickstart.md scenarios manually: build, rate limit test loop, 429 response check, actuator exclusion
+- [X] T030 Run ./gradlew build to verify project compiles and all tests pass
 
 ---
 
