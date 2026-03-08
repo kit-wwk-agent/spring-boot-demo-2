@@ -19,10 +19,10 @@
 
 **Purpose**: Verify existing actuator configuration and prepare test infrastructure
 
-- [ ] T001 Verify actuator health endpoint configuration in src/main/resources/application.yml
-- [ ] T002 Verify database health indicator in readiness group in src/main/resources/application.yml
-- [ ] T003 [P] Verify disk space health indicator configuration (10MB threshold) in src/main/resources/application.yml
-- [ ] T004 [P] Create health test package directory at src/test/java/com/example/demo/health/
+- [X] T001 Verify actuator health endpoint configuration in src/main/resources/application.yml
+- [X] T002 Verify database health indicator in readiness group in src/main/resources/application.yml
+- [X] T003 [P] Verify disk space health indicator configuration (10MB threshold) in src/main/resources/application.yml
+- [X] T004 [P] Create health test package directory at src/test/java/com/example/demo/health/
 
 ---
 
@@ -32,8 +32,8 @@
 
 **CRITICAL**: No user story tests can begin until this phase is complete
 
-- [ ] T005 Create base test configuration with MockMvc setup in src/test/java/com/example/demo/health/ActuatorHealthTestBase.java
-- [ ] T006 Configure test profile with H2 database in src/test/resources/application-test.properties (if not exists)
+- [X] T005 Create base test configuration with MockMvc setup in src/test/java/com/example/demo/health/ActuatorHealthTestBase.java
+- [X] T006 Configure test profile with H2 database in src/test/resources/application-test.properties (if not exists)
 
 **Checkpoint**: Foundation ready - user story test implementation can now begin in parallel
 
@@ -47,11 +47,11 @@
 
 ### Tests for User Story 1
 
-- [ ] T007 [P] [US1] Test health endpoint returns HTTP 200 when healthy in src/test/java/com/example/demo/health/BasicHealthCheckTest.java
-- [ ] T008 [P] [US1] Test health endpoint returns JSON body `{"status":"UP"}` when healthy in src/test/java/com/example/demo/health/BasicHealthCheckTest.java
-- [ ] T009 [P] [US1] Test health endpoint accessible without authentication in src/test/java/com/example/demo/health/BasicHealthCheckTest.java
-- [ ] T010 [US1] Test health endpoint response time under 500ms in src/test/java/com/example/demo/health/BasicHealthCheckTest.java
-- [ ] T011 [US1] Test health endpoint returns Content-Type application/json in src/test/java/com/example/demo/health/BasicHealthCheckTest.java
+- [X] T007 [P] [US1] Test health endpoint returns HTTP 200 when healthy in src/test/java/com/example/demo/health/BasicHealthCheckTest.java
+- [X] T008 [P] [US1] Test health endpoint returns JSON body `{"status":"UP"}` when healthy in src/test/java/com/example/demo/health/BasicHealthCheckTest.java
+- [X] T009 [P] [US1] Test health endpoint accessible without authentication in src/test/java/com/example/demo/health/BasicHealthCheckTest.java
+- [X] T010 [US1] Test health endpoint response time under 500ms in src/test/java/com/example/demo/health/BasicHealthCheckTest.java
+- [X] T011 [US1] Test health endpoint returns Content-Type application/json in src/test/java/com/example/demo/health/BasicHealthCheckTest.java
 
 **Checkpoint**: User Story 1 complete - basic load balancer health check verified
 
@@ -65,9 +65,9 @@
 
 ### Tests for User Story 2
 
-- [ ] T012 [P] [US2] Test health returns HTTP 503 with DOWN status when database unavailable in src/test/java/com/example/demo/health/DatabaseHealthCheckTest.java
-- [ ] T013 [P] [US2] Test health returns HTTP 200 with UP status when database recovers in src/test/java/com/example/demo/health/DatabaseHealthCheckTest.java
-- [ ] T014 [US2] Test readiness probe includes database status at /actuator/health/readiness in src/test/java/com/example/demo/health/DatabaseHealthCheckTest.java
+- [X] T012 [P] [US2] Test health returns HTTP 503 with DOWN status when database unavailable in src/test/java/com/example/demo/health/DatabaseHealthCheckTest.java
+- [X] T013 [P] [US2] Test health returns HTTP 200 with UP status when database recovers in src/test/java/com/example/demo/health/DatabaseHealthCheckTest.java
+- [X] T014 [US2] Test readiness probe includes database status at /actuator/health/readiness in src/test/java/com/example/demo/health/DatabaseHealthCheckTest.java
 
 **Checkpoint**: User Story 2 complete - database connectivity monitoring verified
 
@@ -81,9 +81,9 @@
 
 ### Tests for User Story 3
 
-- [ ] T015 [P] [US3] Test disk space indicator included in health response (with show-details=always) in src/test/java/com/example/demo/health/DiskSpaceHealthCheckTest.java
-- [ ] T016 [US3] Test readiness probe includes disk space status at /actuator/health/readiness in src/test/java/com/example/demo/health/DiskSpaceHealthCheckTest.java
-- [ ] T017 [US3] Verify disk space threshold configuration (10MB) is applied in src/test/java/com/example/demo/health/DiskSpaceHealthCheckTest.java
+- [X] T015 [P] [US3] Test disk space indicator included in health response (with show-details=always) in src/test/java/com/example/demo/health/DiskSpaceHealthCheckTest.java
+- [X] T016 [US3] Test readiness probe includes disk space status at /actuator/health/readiness in src/test/java/com/example/demo/health/DiskSpaceHealthCheckTest.java
+- [X] T017 [US3] Verify disk space threshold configuration (10MB) is applied in src/test/java/com/example/demo/health/DiskSpaceHealthCheckTest.java
 
 **Checkpoint**: User Story 3 complete - disk space monitoring verified
 
@@ -93,10 +93,10 @@
 
 **Purpose**: Final validation and documentation
 
-- [ ] T018 [P] Run all health endpoint tests and verify pass in src/test/java/com/example/demo/health/
-- [ ] T019 [P] Verify liveness probe endpoint at /actuator/health/liveness returns expected response
-- [ ] T020 Run quickstart.md validation - execute manual test commands from specs/007-actuator-health/quickstart.md
-- [ ] T021 Verify all acceptance scenarios from spec.md pass
+- [X] T018 [P] Run all health endpoint tests and verify pass in src/test/java/com/example/demo/health/
+- [X] T019 [P] Verify liveness probe endpoint at /actuator/health/liveness returns expected response
+- [X] T020 Run quickstart.md validation - execute manual test commands from specs/007-actuator-health/quickstart.md
+- [X] T021 Verify all acceptance scenarios from spec.md pass
 
 ---
 
