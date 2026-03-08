@@ -29,9 +29,9 @@ tests/
 Java 21 (LTS): Follow standard conventions
 
 ## Recent Changes
+- 007-actuator-health: Added Java 21 (LTS) + Spring Boot 3.4.3 (spring-boot-starter-actuator, spring-boot-starter-data-jpa, spring-boot-starter-web)
 - 006-actuator-health: Added Java 21 (LTS) with Spring Boot 3.4.3 + spring-boot-starter-actuator, spring-boot-starter-data-jpa, spring-boot-starter-web
 - 005-actuator-health: Added Java 21 (LTS) + Spring Boot 3.4.3 (spring-boot-starter-actuator, spring-boot-starter-data-jpa, spring-boot-starter-web)
-- 001-api-list-pagination: Added Java 21 (LTS) + spring-boot-starter-web, spring-boot-starter-data-jpa, spring-boot-starter-validation, spring-boot-starter-actuator
 
 
 <!-- MANUAL ADDITIONS START -->
