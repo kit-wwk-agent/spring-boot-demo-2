@@ -124,9 +124,9 @@
 - [X] T028 [P] Create HealthEndpointIntegrationTest in src/test/java/com/example/demo/integration/HealthEndpointIntegrationTest.java
 - [X] T029 [P] Add integration test for response time < 500ms in src/test/java/com/example/demo/integration/HealthEndpointIntegrationTest.java
 - [X] T030 Add integration test for all health endpoints working together in src/test/java/com/example/demo/integration/HealthEndpointIntegrationTest.java
-- [ ] T031 Run all health tests with ./gradlew test --tests "*Health*"
-- [ ] T032 Run quickstart.md validation (manual curl tests from quickstart.md)
-- [ ] T033 Verify application starts cleanly with ./gradlew bootRun
+- [X] T031 Run all health tests with ./gradlew test --tests "*Health*"
+- [X] T032 Run quickstart.md validation (manual curl tests from quickstart.md)
+- [X] T033 Verify application starts cleanly with ./gradlew bootRun
 
 ---
 
