@@ -10,6 +10,7 @@ Auto-generated from all feature plans. Last updated: 2026-02-24
 - Java 21 (LTS) + Spring Boot 3.4.3 (spring-boot-starter-actuator, spring-boot-starter-data-jpa, spring-boot-starter-web) (005-actuator-health)
 - H2 (dev/test), PostgreSQL (prod) via Spring Data JPA (005-actuator-health)
 - Java 21 (LTS) with Spring Boot 3.4.3 + spring-boot-starter-actuator, spring-boot-starter-data-jpa, spring-boot-starter-web (006-actuator-health)
+- Java 21 (LTS) + Spring Boot 3.4.3 (spring-boot-starter-actuator, spring-boot-starter-data-jpa, spring-boot-starter-web, spring-boot-starter-validation) (008-actuator-health)
 
 - Java 21 (LTS) + spring-boot-starter-actuator, spring-boot-starter-data-jpa, spring-boot-starter-web (001-actuator-health)
 
@@ -29,9 +30,9 @@ tests/
 Java 21 (LTS): Follow standard conventions
 
 ## Recent Changes
+- 008-actuator-health: Added Java 21 (LTS) + Spring Boot 3.4.3 (spring-boot-starter-actuator, spring-boot-starter-data-jpa, spring-boot-starter-web, spring-boot-starter-validation)
 - 007-actuator-health: Added Java 21 (LTS) + Spring Boot 3.4.3 (spring-boot-starter-actuator, spring-boot-starter-data-jpa, spring-boot-starter-web)
 - 006-actuator-health: Added Java 21 (LTS) with Spring Boot 3.4.3 + spring-boot-starter-actuator, spring-boot-starter-data-jpa, spring-boot-starter-web
-- 005-actuator-health: Added Java 21 (LTS) + Spring Boot 3.4.3 (spring-boot-starter-actuator, spring-boot-starter-data-jpa, spring-boot-starter-web)
 
 
 <!-- MANUAL ADDITIONS START -->
